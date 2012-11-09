@@ -1,0 +1,16 @@
+MANIFEST
+MANIFEST.SKIP
+README
+Makefile.PL
+lib/ACL/Regex.pm
+README
+Makefile.PL
+t/actions.txt
+t/required.txt
+t/acl.permit.txt
+t/acl.reject.txt
+t/test_acl.pl
+t/001.t
+t/action.txt
+examples/postifx-policy-server.pl
+META.yml                                 Module meta-data (added by MakeMaker)
