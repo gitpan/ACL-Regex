@@ -8,9 +8,6 @@ into a native format, and checks them against a database of ACLs.
 Note, that this intended for use strictly with Postfix systems, but rather
 any system that requires an ACL: web-application, mail application, etc.
 
-Todo:
+Installation:
 
-- Create a better backend abstraction, to allow extensions to be added
-  for ACL retreival, ie memcache, file, etc.
-
-- Ensure that all ACLs are compiled once, and create a LRU cache
+ $ perl Makefile.PL && make test install

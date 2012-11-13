@@ -8,7 +8,7 @@ use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK);
 require Exporter;
 
 @EXPORT = qw( new parse_acl_from_file match );
-$VERSION = '0.0001_02';
+$VERSION = '0.0001';
 
 sub new {
 my $type = shift;
