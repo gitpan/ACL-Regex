@@ -8,7 +8,7 @@ use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK);
 require Exporter;
 
 @EXPORT = qw( new parse_acl_from_file match );
-$VERSION = '0.0001_01';
+$VERSION = '0.0001_02';
 
 sub new {
 my $type = shift;
@@ -196,27 +196,63 @@ the programmer to chain the commands together.
 
 =over 4
 
-=item B<:generate_required>
+=item B<generate_required>
 
 This method pulls in a I<:file> containing a series of required keys.
 
-=item B<:sanitize_acl>
+=item B<sanitize_acl>
 
 This method re-sorts the keys in alphabetical order.
 
-=item B<:sanitize_action>
+=item B<sanitize_action>
 
 This method accomplishes the same thing as B<:sanitize_acl>
 but for actions.
 
-=item B<:parse_acl_from_file>
+=item B<parse_acl_from_file>
 
 This method takes a hash as a parameter:
 
   parse_acl_from_file( { Filename => "acl.reject.txt" } )
 
-=item B<:match>
+=item B<match>
 
 This method takes an action as a parameter, and returns a triplet
 containing the return code, matched regex, and any comment associated
 with the regex.
+
+=back
+
+=head2 INPUT FILES
+
+=head 3 ACL REGEX FILE
+
+An example of ain input ACL file can be found in the I<t> folder of this project, but it simply
+comprises of rows that look like:
+
+  # Don't allow domain admins to delete mailboxes on weekends or mondays
+  /action=[mac-delete-mailbox] account=[.*@domain.net.adm] group=[domain-admin] dow=[sat|sun|mon]/        Domain admins can only delete mailboxes during the week
+  # Reject mail from brazil
+  /account=[.*@example.net] ip=[200..*] group=[user] action=[send-mail]/  No mail to be sent from Brazil!
+
+The two tab deliminated columns separate the regex acl and the comment returned if any
+match is found.
+
+=head 3 REQUIRED FILE
+
+The required file is supplied to the object during instantiation and will seed
+the object with a list of I<required> keys in the hash.  This way, if a key regex
+isn't present in the B<ACL REGEX FILE> then the object will fill the hash with
+a regex that I<matches all> possibilities.  This is designed to satisfy the regex
+string should a key be absent from the action line.
+
+  # This file contains a list of actions, and required attributes
+  send-mail=account,ip,group,dow,time
+  rwi_login=account,ip,auth_method,dow,time
+  create_user=account,ip
+
+=head 3 ACTION FILE
+
+A line of B<key>=[B<val>] pairs to be consumed by the ACL object.  These get
+massaged so that any action key that doesn't satisfy the B<REQUIRED> fields are
+added and the entire string is sorted by key name.
