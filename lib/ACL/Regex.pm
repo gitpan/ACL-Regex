@@ -8,7 +8,7 @@ use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK);
 require Exporter;
 
 @EXPORT = qw( new parse_acl_from_file match );
-$VERSION = '0.0001';
+$VERSION = '0.0002';
 
 sub new {
 my $type = shift;
@@ -225,7 +225,7 @@ with the regex.
 
 =head2 INPUT FILES
 
-=head 3 ACL REGEX FILE
+=head3 ACL REGEX FILE
 
 An example of ain input ACL file can be found in the I<t> folder of this project, but it simply
 comprises of rows that look like:
@@ -238,7 +238,7 @@ comprises of rows that look like:
 The two tab deliminated columns separate the regex acl and the comment returned if any
 match is found.
 
-=head 3 REQUIRED FILE
+=head3 REQUIRED FILE
 
 The required file is supplied to the object during instantiation and will seed
 the object with a list of I<required> keys in the hash.  This way, if a key regex
@@ -251,8 +251,22 @@ string should a key be absent from the action line.
   rwi_login=account,ip,auth_method,dow,time
   create_user=account,ip
 
-=head 3 ACTION FILE
+=head3 ACTION FILE
 
 A line of B<key>=[B<val>] pairs to be consumed by the ACL object.  These get
 massaged so that any action key that doesn't satisfy the B<REQUIRED> fields are
 added and the entire string is sorted by key name.
+
+=head1 AUTHOR
+
+Peter Blair C<pblair@cpan.org>
+
+=head1 COPYRIGHT
+
+This program is distributed in the hope that it will be
+useful, but it is provided “as is” and without any express
+or implied warranties.
+
+=head1 BUGS
+
+Please report any bugs via L<https://github.com/petermblair/Perl-CPAN/issues>.

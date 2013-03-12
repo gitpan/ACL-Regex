@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               ACL-Regex
-version:            0.0001
+version:            0.0002
 abstract:           Class to generate access controls using PCRE
 author:
     - Peter Blair (pblair@cpan.org)
